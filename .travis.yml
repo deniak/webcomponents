@@ -13,8 +13,7 @@ env:
 script:
 - echo "ok"
 after_success:
-- FILES=`git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT}`
-- NAME=$(./get_spec_name.sh $FILES)
-- test "${NAME#*custom}" != "$NAME" && curl "https://labs.w3.org/echidna/api/request" --data "url=http://siusin.github.io/webcomponents/spec/custom/W3CTRMANIFEST" --data "decision=$DECISION" --data "token=$TOKEN_CUSTOM"
-- test "${NAME#*shadow}" != "$NAME" && curl "https://labs.w3.org/echidna/api/request" --data "url=http://siusin.github.io/webcomponents/spec/shadow/W3CTRMANIFEST" --data "decision=$DECISION" --data "token=$TOKEN_SHADOW"
-- test "${NAME#*imports}" != "$NAME" && curl "https://labs.w3.org/echidna/api/request" --data "url=http://siusin.github.io/webcomponents/spec/imports/W3CTRMANIFEST" --data "decision=$DECISION" --data "token=$TOKEN_IMPORTS"
+- SPECS=`git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT} | grep '^spec' | cut -d'/' -f 2 | sort | uniq | xargs`
+- test "${SPECS#*custom}" != "$SPECS" && curl "https://labs.w3.org/echidna/api/request" --data "url=http://siusin.github.io/webcomponents/spec/custom/W3CTRMANIFEST" --data "decision=$DECISION" --data "token=$TOKEN_CUSTOM"
+- test "${SPECS#*shadow}" != "$SPECS" && curl "https://labs.w3.org/echidna/api/request" --data "url=http://siusin.github.io/webcomponents/spec/shadow/W3CTRMANIFEST" --data "decision=$DECISION" --data "token=$TOKEN_SHADOW"
+- test "${SPECS#*imports}" != "$SPECS" && curl "https://labs.w3.org/echidna/api/request" --data "url=http://siusin.github.io/webcomponents/spec/imports/W3CTRMANIFEST" --data "decision=$DECISION" --data "token=$TOKEN_IMPORTS"
