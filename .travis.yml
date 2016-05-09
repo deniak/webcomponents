@@ -15,6 +15,6 @@ script:
 after_success:
 - FILES=`git diff-tree --no-commit-id --name-only -r ${TRAVIS_COMMIT}`
 - NAME=$(./get_spec_name.sh $FILES)
-- test $NAME=="custom" && curl "https://labs.w3.org/echidna/api/request" --data "url=http://siusin.github.io/webcomponents/spec/custom/W3CTRMANIFEST" --data "decision=$DECISION" --data "token=$TOKEN_CUSTOM"
-- test $NAME=="shadow" && curl "https://labs.w3.org/echidna/api/request" --data "url=http://siusin.github.io/webcomponents/spec/shadow/W3CTRMANIFEST" --data "decision=$DECISION" --data "token=$TOKEN_SHADOW"
-- test $NAME=="imports" && curl "https://labs.w3.org/echidna/api/request" --data "url=http://siusin.github.io/webcomponents/spec/imports/W3CTRMANIFEST" --data "decision=$DECISION" --data "token=$TOKEN_IMPORTS"
+- test $NAME = "custom" && curl "https://labs.w3.org/echidna/api/request" --data "url=http://siusin.github.io/webcomponents/spec/custom/W3CTRMANIFEST" --data "decision=$DECISION" --data "token=$TOKEN_CUSTOM"
+- test $NAME = "shadow" && curl "https://labs.w3.org/echidna/api/request" --data "url=http://siusin.github.io/webcomponents/spec/shadow/W3CTRMANIFEST" --data "decision=$DECISION" --data "token=$TOKEN_SHADOW"
+- test $NAME = "imports" && curl "https://labs.w3.org/echidna/api/request" --data "url=http://siusin.github.io/webcomponents/spec/imports/W3CTRMANIFEST" --data "decision=$DECISION" --data "token=$TOKEN_IMPORTS"
